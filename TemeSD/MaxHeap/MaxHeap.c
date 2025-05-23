@@ -126,7 +126,14 @@ Masina extrageMasina(Heap* heap) {
 
 
 void dezalocareHeap(Heap* heap) {
-	//sterge toate elementele din Heap
+	for (int i = 0; i < heap->lungime; i++) {
+		free(heap->vector[i].model);
+		free(heap->vector[i].numeSofer);
+	}
+	free(heap->vector);
+	heap->vector = NULL;
+	heap->lungime = 0;
+	heap->nrMasini = 0;
 }
 
 int main() {
@@ -145,6 +152,7 @@ int main() {
 	afisareMasina(extrageMasina(&heap));
 	printf("afisare heap ascuns \n\n\n\n\n");
 	afiseazaHeapAscuns(heap);
+	dezalocareHeap(&heap);
 
 	return 0;
 }
